@@ -1,0 +1,13 @@
+{
+  "name": "mapsuntold-sdk",
+  "version": "0.0.1",
+  "description": "Maps Untold Javascript SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
