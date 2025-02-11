@@ -6,41 +6,55 @@ interface Model {
     updated_at: string
 }
 
-interface Image extends Model {
-    image_url: string
-}
-
 interface Location extends Model {
-    address: string
-    category_name: string
-    city: string
-    country_code: string
-    description: string | null
-    extra_text: string | null
-    header_text: string | null
-    highlight_text: string | null
-    image_url: string
-    images: Array<Image>
-    lat: number
-    lon: number
-    menu_link: string | null
-    neighborhood: string
-    number_of_reviews: number
+    title: string
+    description: string
+    // extra_text: string
+
+    phone: string
+    website: string
+
     open_now: boolean
     open_today: boolean
-    parent_category: ID
-    parent_category_name: string
-    phone: string
+
     place_id: string
-    plus_code: string
-    postal_code: string
-    price: string
-    reservation_link_mu: string | null
-    review_stars: number
-    street: string
-    tags: Array<string>
-    title: string
-    website: string
+    reviews_stars: number
+    reviews_count: number
+
+    topics: string[]
+
+    category: {
+        id: number
+        title: string
+    }
+
+    parent_category: {
+        id: number
+        title: string
+    }
+
+    media: {
+        thumbnail_url: string
+        media_url: string
+        type: "photo" | "video"
+    }[]
+
+    actions: {
+        text: string
+        url: string
+        icon: string
+    }[]
+
+    address: {
+        country: string
+        city: string
+        postal_code: string
+        neighborhood: string
+        street: string
+        plus_code: string
+        latitude: number
+        longitude: number
+    }
 }
 
 interface ChannelStyle extends Model {
@@ -75,8 +89,7 @@ interface RawChannel extends Model {
 interface Recommendation extends Model {
     distance: string
     score: number
-    tags: Array<string>
-    recommendation: Location
+    location: Location
 }
 
 interface ParentCategory extends Model {

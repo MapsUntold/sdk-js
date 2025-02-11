@@ -1,28 +1,22 @@
 # Maps Untold Javascript SDK (WIP)
 
-## Installation
-TODO
+## Towards version 1
+The goal is to provide a simple typescript library that integration partners can use to query the MapsUntold API. The library will implement 4 methods:
+- Get a channel -> `mu.getChannel()`
+- Get channel recommendations -> `channel.getRecommendations(category)`
+- Get parent categories -> `mu.getParentCategories()`
+- Get autocomplete results -> `mu.getLocationAutocomplete(query)`
 
-## Usage
+A github action should be included that builds the library into a package.
+
+## Concept: How to use
 ```typescript
+import Mapsuntold, MapsUntoldConfig from '@mapsuntold/sdk'
+
 // Create config
-const config = {
+const config : MapsUntoldConfig = {
+    // Used to authenticate with the Maps Untold API
     apiKey: "<API_KEY>"
-    style: {
-        logo: "<URL>"
-        colors: {
-            primary: "<HEX>"
-            secondary: "<HEX>"
-            light: {
-                text: "<HEX>"
-                background: "<HEX>"
-            },
-            dark: {
-                text: "<HEX>"
-                background: "<HEX>"
-            }
-        }
-    }
 }
 
 // Initialize the SDK
@@ -31,9 +25,6 @@ const mu = new MapsUntold(config)
 // Retrieve a channel
 const channel = await mu.getChannel("dille-kamille-eindhoven")
 
-// Get generic results
-const results1 = await channel.getRecommendations()
-
-// Get personalized results
-const results2 = await channel.getPersonalizedRecommendations()
+// Get results
+const results = await channel.getRecommendations(/* PARAMS */)
 ```

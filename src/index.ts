@@ -1,5 +1,5 @@
 import { Channel } from "./channel";
-import { Config, Style } from "./config";
+import { Config } from "./config";
 import { AutocompleteResult, Location, ID, Pagination, ParentCategory, Recommendation } from "./types";
 
 class MapsUntold {
@@ -23,7 +23,6 @@ class MapsUntold {
 export {
     MapsUntold,
     Config,
-    Style,
     Pagination,
     Location,
     Channel,

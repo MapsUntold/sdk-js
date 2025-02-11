@@ -17,11 +17,7 @@ class Channel {
         this.included_cities = data.included_cities
     }
 
-    public async recommendations(): Promise<Pagination<Recommendation>> {
-        // TODO
-    }
-
-    public async personalize(): Promise<Pagination<Recommendation>> {
+    public async getRecommendations(): Promise<Pagination<Recommendation>> {
         // TODO
     }
 }
