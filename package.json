@@ -4,6 +4,7 @@
   "description": "Maps Untold Javascript SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "/dist"
   ],
@@ -12,6 +13,16 @@
     "watch": "npm run build -- -w"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
-  }
+    "typescript": "^5.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MapsUntold/sdk-js.git"
+  },
+  "author": "Gregory Gomes Branco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MapsUntold/sdk-js/issues"
+  },
+  "homepage": "https://github.com/MapsUntold/sdk-js#readme"
 }
