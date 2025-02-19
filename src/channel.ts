@@ -18,7 +18,34 @@ class Channel {
     }
 
     public async getRecommendations(): Promise<Pagination<Recommendation>> {
-        // TODO
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        //mock data
+        const recommendations: Recommendation[] = [
+            {
+                distance: "3.5",
+                score: 2,
+                location: this.location ,
+                id: 0,
+                created_at: "",
+                updated_at: ""
+            },
+            {
+                distance: "5",
+                score: 3,
+                location: this.location,
+                id: 0,
+                created_at: "",
+                updated_at: ""
+            }
+        ]
+
+        return {
+            count: recommendations.length,
+            next: null,
+            previous: null,
+            results: recommendations
+        };
     }
 }
 
