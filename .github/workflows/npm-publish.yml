@@ -1,0 +1,25 @@
+name: build and Import NPM Package
+
+on:
+  push: 
+    branches:
+      -main # Zorg dat de workflow draait als er gepusht wordt naar main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # kan ook windows-latest weet niet welke we nodig hebben
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '23'
+
+      - name: install dependencies
+        run: npm install
+
+      - name: build the project
+        run: npm run build
