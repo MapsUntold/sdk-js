@@ -9,50 +9,15 @@
     <h1>MapsUntold SDK Demo</h1>
     <button id="loadChannel">Load Channel</button>
     <div id="channel-info"></div>
-    <div id="import-status"></div>
 
     <script type="module">
-        // Probeer de MapsUntold module correct te importeren
-        import MapsUntold from './dist/index.js';
+        import { MapsUntold } from "./dist/bundle.js"; // Verwijs naar de Rollup-output
 
-        console.log('MapsUntold module loaded:', MapsUntold);
-
-        // Controleer of MapsUntold correct is geïmporteerd
-        if (typeof MapsUntold === 'undefined') {
-            document.getElementById("import-status").innerHTML = "<p>Error: MapsUntold module could not be loaded.</p>";
-        } else {
-            document.getElementById("import-status").innerHTML = "<p>MapsUntold module loaded successfully.</p>";
-        }
-
-        // Maak een mock-up van het SDK gebruik (zonder echte API)
-        class MockChannel {
-            constructor(id, name, location) {
-                this.id = id;
-                this.name = name;
-                this.location = location;
-            }
-        }
-
-        class MockMapsUntold {
-            async getChannel(channelId) {
-                // Mock data voor een kanaal
-                return new MockChannel(
-                    channelId,
-                    `Channel: ${channelId}`,
-                    { lat: 52.379189, lng: 4.900934 } // Example location (latitude, longitude)
-                );
-            }
-        }
-
-        // Maak een nieuwe instance van MapsUntold (gebruik de mock klasse)
-        const sdk = new MockMapsUntold();
+        const sdk = new MapsUntold({ apiKey: "YOUR_API_KEY" });
 
         document.getElementById("loadChannel").addEventListener("click", async () => {
             try {
-                // Haal mock channel data op
                 const channel = await sdk.getChannel("dille-kamille-eindhoven");
-
-                // Toon de kanaal-informatie in de HTML
                 document.getElementById("channel-info").innerHTML = `
                     <h2>Channel Info</h2>
                     <p>ID: ${channel.id}</p>

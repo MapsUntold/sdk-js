@@ -1,8 +1,9 @@
-import { Channel } from "./channel";
-import { Config } from "./config";
-import HttpClient from "./httpClient";
-import { AxiosInstance } from "axios"
-import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategory, Recommendation } from "./types";
+import { Channel } from "./channel.js";
+import { Config } from "./config.js";
+import HttpClient from "./httpClient.js";
+import { AxiosInstance } from "../node_modules/axios/index.js"
+import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategory, Recommendation } from "./types.js";
+
 
  export interface MapsUntoldConfig {
     apiKey: string;
@@ -12,8 +13,8 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
     constructor(config: MapsUntoldConfig) {
         this.httpClient = new HttpClient(config.apiKey).getClient();
     }
-
     public async getChannel(channelId: string): Promise<Channel> {
+        console.log("het werkt")
         try {
             // Haal de volledige channel data op
             const response = await this.httpClient.get<RawChannel>(`/channels/${channelId}`);

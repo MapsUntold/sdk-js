@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ChannelStyle, ExampleLocation, ID, Location, Pagination, ParentCategory, RawChannel, Recommendation, TopLocation } from "./types";
+import { ChannelStyle, ExampleLocation, ID, Location, Pagination, ParentCategory, RawChannel, Recommendation, TopLocation } from "./types.js";
 
 class Channel {
     public id: ID;

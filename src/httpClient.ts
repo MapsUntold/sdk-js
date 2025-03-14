@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "../node_modules/axios/index.js";
+
 
 class HttpClient {
     private client: AxiosInstance;
