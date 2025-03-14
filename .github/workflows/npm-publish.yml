@@ -1,26 +1,33 @@
 name: build and Import NPM Package
 
 on:
-  push: 
+  push:
     branches:
-      -Compiling-and-imports
-      -main # Zorg dat de workflow draait als er gepusht wordt naar main
+      - main
+      - Compiling-and-imports
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest # kan ook windows-latest weet niet welke we nodig hebben
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Haal de repository op
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Installeer Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '23'
+          node-version: 23
+          cache: 'npm'
 
-      - name: install dependencies
+      - name: Installeer dependencies
         run: npm install
 
-      - name: build the project
+      - name: Compile TypeScript
         run: npm run build
+
+      - name: Bundel met Rollup
+        run: npm run rollup
