@@ -3,6 +3,7 @@ name: build and Import NPM Package
 on:
   push: 
     branches:
+      -Compiling-and-imports
       -main # Zorg dat de workflow draait als er gepusht wordt naar main
 
 jobs:
