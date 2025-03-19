@@ -7,8 +7,8 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
 
  export interface MapsUntoldConfig {
     apiKey: string;
-}
- class MapsUntold {
+  }
+  class MapsUntold {
     private httpClient: AxiosInstance;
     constructor(config: MapsUntoldConfig) {
         this.httpClient = new HttpClient(config.apiKey).getClient();
@@ -19,17 +19,26 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
             // Haal de volledige channel data op
             const response = await this.httpClient.get<RawChannel>(`/channels/${channelId}`);
             
-            // Maak een Channel instantie
             return new Channel(response.data, this.httpClient);
         } catch (error) {
             console.error("Error fetching channel data:", error);
             throw new Error("Failed to fetch channel data");
         }
     }
-
-    public async getParentCategories(categoryId: ID): Promise<Array<ParentCategory>> {
+    
+    public async getRecommendations(channelId: string, parent_category_id: number, input_location_id: number): Promise<Pagination<Recommendation>> {
         try {
-            const response = await this.httpClient.get<Array<ParentCategory>>(`/categories/${categoryId}/parents`);
+            // Haal aanbevelingen op voor een specifieke categorie
+            const response = await this.httpClient.get<Pagination<Recommendation>>(`/recommendations/${channelId}/${parent_category_id}/${input_location_id}/`);
+            return response.data;  // We nemen aan dat response.data een object is van type Pagination<Recommendation>
+        } catch (error) {
+            console.error("Error fetching recommendations:", error);
+            throw new Error("Failed to fetch recommendations");
+        }
+    }
+       public async getParentCategories(channelId: string): Promise<Array<ParentCategory>> {
+        try {
+            const response = await this.httpClient.get<Array<ParentCategory>>(`/parent-categories/${channelId}/`);
             return response.data;
         } catch (error) {
             console.error("Error fetching parent categories:", error);
@@ -39,9 +48,10 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
 
     public async getLocationAutocomplete(query: string): Promise<Pagination<AutocompleteResult>> {
         try {
-            const response = await this.httpClient.get<Pagination<AutocompleteResult>>(`/locations/autocomplete`, {
+            const response = await this.httpClient.get<Pagination<AutocompleteResult>>('/locations/autocomplete/', {
                 params: { query }
             });
+
             return response.data;
         } catch (error) {
             console.error("Error fetching location autocomplete:", error);

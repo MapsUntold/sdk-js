@@ -6,9 +6,9 @@ class HttpClient {
 
     constructor(apiKey: string) {
         this.client = axios.create({
-            baseURL: "https://api.mapsuntold.com", // Pas aan naar de juiste API URL
+            baseURL: "https://api.mapsuntold.io/v2", // Pas aan naar de juiste API URL
             headers: {
-                "Authorization": `Bearer ${apiKey}`,
+                "Authorization": `token ${apiKey}`,
                 "Content-Type": "application/json"
             }
         });
