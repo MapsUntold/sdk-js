@@ -13,11 +13,10 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
     constructor(config: MapsUntoldConfig) {
         this.httpClient = new HttpClient(config.apiKey).getClient();
     }
-    public async getChannel(channelId: string): Promise<Channel> {
-        console.log("het werkt")
+    public async getChannel(channelSlug: string): Promise<Channel> {
         try {
             // Haal de volledige channel data op
-            const response = await this.httpClient.get<RawChannel>(`/channels/${channelId}`);
+            const response = await this.httpClient.get<RawChannel>(`/channels/${channelSlug}`);
             
             return new Channel(response.data, this.httpClient);
         } catch (error) {
@@ -26,19 +25,19 @@ import { AutocompleteResult, Location, ID, Pagination, RawChannel, ParentCategor
         }
     }
     
-    public async getRecommendations(channelId: string, parent_category_id: number, input_location_id: number): Promise<Pagination<Recommendation>> {
+    public async getRecommendations(channelSlug: string, parent_category_id: number, input_location_id: number): Promise<Pagination<Recommendation>> {
         try {
             // Haal aanbevelingen op voor een specifieke categorie
-            const response = await this.httpClient.get<Pagination<Recommendation>>(`/recommendations/${channelId}/${parent_category_id}/${input_location_id}/`);
+            const response = await this.httpClient.get<Pagination<Recommendation>>(`/recommendations/${channelSlug}/${parent_category_id}/${input_location_id}/`);
             return response.data;  // We nemen aan dat response.data een object is van type Pagination<Recommendation>
         } catch (error) {
             console.error("Error fetching recommendations:", error);
             throw new Error("Failed to fetch recommendations");
         }
     }
-       public async getParentCategories(channelId: string): Promise<Array<ParentCategory>> {
+       public async getParentCategories(channelSlug: string): Promise<Array<ParentCategory>> {
         try {
-            const response = await this.httpClient.get<Array<ParentCategory>>(`/parent-categories/${channelId}/`);
+            const response = await this.httpClient.get<Array<ParentCategory>>(`/parent-categories/${channelSlug}/`);
             return response.data;
         } catch (error) {
             console.error("Error fetching parent categories:", error);

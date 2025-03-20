@@ -29,5 +29,5 @@ jobs:
       - name: Compile TypeScript
         run: npm run build
 
-      #- name: Bundel met Rollup
-        #run: npm run rollup
+      - name: Bundel met Rollup
+        run: rollup -c
