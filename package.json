@@ -28,7 +28,7 @@
     "url": "git+https://github.com/MapsUntold/sdk-js.git"
   },
   "author": "Maps Untold",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/MapsUntold/sdk-js/issues"
   },
