@@ -1,5 +1,5 @@
 {
-  "name": "mapsuntold-sdk",
+  "name": "@mapsuntold/sdk",
   "version": "0.0.1",
   "description": "Maps Untold Javascript SDK",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "type": "git",
     "url": "git+https://github.com/MapsUntold/sdk-js.git"
   },
-  "author": "Gregory Gomes Branco",
+  "author": "Maps Untold",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MapsUntold/sdk-js/issues"
