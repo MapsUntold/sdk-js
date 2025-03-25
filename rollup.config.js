@@ -20,10 +20,9 @@ export default {
     commonjs(),
     typescript(),
     json(),
-    polyfillNode(), // Polyfill Node.js modules voor de browser
+    polyfillNode(),
     inject({
       process: "process",
-      Buffer: ["buffer", "Buffer"],
     }),
   ],
 };

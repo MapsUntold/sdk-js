@@ -1,9 +1,9 @@
 {
   "name": "@mapsuntold/sdk",
-  "version": "0.1.1",
+  "version": "0.1.10",
   "description": "Maps Untold Javascript SDK",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/bundle.js",
+  "types": "dist/types/index.d.ts",
   "type": "module",
   "files": [
     "/dist"

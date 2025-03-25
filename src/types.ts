@@ -5,61 +5,54 @@ interface Model {
 }
 
 interface Location extends Model {
-    title: string
-    description: string
+    id: number;
+    title: string;
+    description: string;
+    phone: string;
+    website: string;
+    open_now: boolean;
+    open_today: boolean;
+    place_id: string;
+    reviews_stars: number;
+    reviews_count: number;
 
-    phone: string
-    website: string
-
-    open_now: boolean
-    open_today: boolean
-
-    place_id: string
-    reviews_stars: number
-    reviews_count: number
-
-    topics: string[]
+    promo: {
+        title: string;
+        icon: string;
+    } | null;
 
     category: {
-        id: number
-        title: string
-    }
+        id: number;
+        name: string;
+    };
 
     parent_category: {
-        id: number
-        title: string
-    }
-
-    media: {
-        thumbnail_url: string
-        media_url: string
-        type: "photo" | "video"
-    }[]
-
-    actions: {
-        text: string
-        url: string
-        icon: string
-    }[]
+        id: number;
+        name: string;
+    };
 
     address: {
-        country: string
-        city: string
-        postal_code: string
-        neighborhood: string
-        street: string
-        plus_code: string
-        latitude: number
-        longitude: number
-    }
-}
+        country: string;
+        city: string;
+        postal_code: string;
+        neighborhood: string;
+        street: string;
+        plus_code: string;
+        latitude: number;
+        longitude: number;
+    };
 
-interface ChannelStyle extends Model {
-    logo: string
-    colors: {
-        primary: string;
-        secondary: string;
-    }
+    media: {
+        thumbnail_url: string;
+        media_url: string;
+        type: "image";
+    }[];
+
+    actions: {
+        text: string;
+        url: string;
+        icon: string;
+    }[];
 }
 
 interface TopLocation extends Model {
@@ -74,12 +67,19 @@ interface ExampleLocation extends Model {
 interface RawChannel extends Model {
     name: string
     slug: string
-    style: ChannelStyle
     top_locations: Array<TopLocation>
     example_locations: Array<ExampleLocation>
     default_location: Location
     included_cities: Array<ID>
     default_parent_category: ParentCategory
+    style: {
+        id: number;
+        logo: string;
+        colors: {
+            primary: string;
+            secondary: string;
+        };
+    };
     center: {
         latitude: number;
         longitude: number;
@@ -96,17 +96,28 @@ interface RawChannel extends Model {
 }
 
 interface Recommendation extends Model {
-    distance: string
-    score: number
-    location: Location
+    match: number;
+    distance: string;
+    topics: {
+        id: string;
+        title: string;
+        match: number;
+    }[];
+    location: Location;
 }
 
 interface ParentCategory extends Model {
-    name: string
-    search_text: string
+    id: number;
+    name: string;
+    name_singular: string;
+    name_plural: string;
+    search_text: string;
+    icon: string;
+    created_at: string;
+    updated_at: string;
 }
 
-interface AutocompleteResult {
+interface LocationAutocomplete {
     id: ID
     title: string
     address: string
@@ -130,9 +141,8 @@ export {
     ExampleLocation,
     Location,
     RawChannel,
-    ChannelStyle,
     Recommendation,
     ParentCategory,
-    AutocompleteResult,
+    LocationAutocomplete,
     Pagination
 };
