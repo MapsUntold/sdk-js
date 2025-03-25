@@ -2,14 +2,11 @@ type ID = number;
 
 interface Model {
     id: ID
-    created_at: string
-    updated_at: string
 }
 
 interface Location extends Model {
     title: string
     description: string
-    // extra_text: string
 
     phone: string
     website: string
@@ -59,11 +56,10 @@ interface Location extends Model {
 
 interface ChannelStyle extends Model {
     logo: string
-    primary_color: string
-    secondary_color: string
-    light_text_color: string
-    font: string | null
-    enable_animation: boolean
+    colors: {
+        primary: string;
+        secondary: string;
+    }
 }
 
 interface TopLocation extends Model {
@@ -84,6 +80,19 @@ interface RawChannel extends Model {
     default_location: Location
     included_cities: Array<ID>
     default_parent_category: ParentCategory
+    center: {
+        latitude: number;
+        longitude: number;
+    }
+    custom_text: Partial<{
+        personalize: Partial<{
+            intro: {
+                title: string;
+                description: string;
+                action: string;
+            }
+        }>
+    }>
 }
 
 interface Recommendation extends Model {

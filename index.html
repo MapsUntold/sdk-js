@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapsUntold SDK Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>MapsUntold SDK Demo</h1>
+
+    <div>
+        <h2>Channel</h2>
+        <input type="text" id="channelId" placeholder="Enter Channel ID">
+        <button id="loadChannel">Load Channel</button>
+        <div id="channel-info"></div>
+    </div>
+
+    <div>
+        <h2>Recommendations</h2>
+        <input type="text" id="recommendationChannelId" placeholder="Enter Channel ID">
+        <input type="number" id="recommendationLocationId" placeholder="Enter Location ID">
+        <input type="number" id="recommendationCategory" placeholder="Enter Category ID">
+        <button id="loadRecommendations">Load Recommendations</button>
+        <div id="recommendations-info"></div>
+    </div>
+    <div>
+        <h2>Parent Categories</h2>
+        <input type="text" id="categoryId" placeholder="Enter Category ID">
+        <button id="loadParentCategories">Load Parent Categories</button>
+        <div id="parent-categories-info"></div>
+    </div>
+
+    <div>
+        <h2>Location Autocomplete</h2>
+        <input type="text" id="autocompleteQuery" placeholder="Enter location query">
+        <button id="loadLocationAutocomplete">Load Location Autocomplete</button>
+        <div id="location-autocomplete-info"></div>
+    </div>
+
+    <script type="module">
+        import { MapsUntold } from "./dist/bundle.js"; // Verwijs naar de Rollup-output
+
+        const apiKey = "276356a225d0d8bc39cc239981d73d7d63a06966e7273a8b91f0e67b5f38e753"; // Replace with correct API key(Token)
+        const sdk = new MapsUntold({ apiKey });
+
+        // Load channel
+        document.getElementById("loadChannel").addEventListener("click", async () => {
+            const channelId = document.getElementById("channelId").value; // Directe toegang zonder casting
+            try {
+                const channel = await sdk.getChannel(channelId);
+                document.getElementById("channel-info").innerHTML = `
+                    <h2>Channel Info</h2>
+                    <p>ID: ${channel.id}</p>
+                    <p>Name: ${channel.name}</p>
+                    <p>Location: ${channel.location.lat}, ${channel.location.lng}</p>
+                `;
+            } catch (error) {
+                document.getElementById("channel-info").innerHTML = `<p>Error loading channel: ${error.message}</p>`;
+            }
+        });
+
+   document.getElementById("loadRecommendations").addEventListener("click", async () => {
+    const channelId = document.getElementById("recommendationChannelId").value;
+    const parentCategoryId = parseInt(document.getElementById("recommendationCategory").value);
+    const inputLocationId = parseInt(document.getElementById("recommendationLocationId").value);
+
+        try {
+            // Verkrijg aanbevelingen
+            const recommendationsResponse = await sdk.getRecommendations(channelId, parentCategoryId, inputLocationId);
+            
+            // We nemen aan dat de response data een 'results' property heeft
+            const recommendations = recommendationsResponse.results;
+
+            // Als de resultaten geen lege array zijn, laat ze zien
+            if (Array.isArray(recommendations) && recommendations.length > 0) {
+                document.getElementById("recommendations-info").innerHTML = `
+                    <h2>Recommendations</h2>
+                    <ul>
+                        ${recommendations.map(recommendation => `
+                            <li>
+                                <strong>Score: ${recommendation.score}</strong><br>
+                                Distance: ${recommendation.distance}<br>
+                                Location: ${recommendation.location.title}<br>
+                                Address: ${recommendation.location.address.street}, ${recommendation.location.address.city}<br>
+                                Phone: ${recommendation.location.phone}<br>
+                                Reviews: ${recommendation.location.reviews_stars} stars (${recommendation.location.reviews_count} reviews)
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            } else {
+                document.getElementById("recommendations-info").innerHTML = "<p>No recommendations found.</p>";
+            }
+        } catch (error) {
+            document.getElementById("recommendations-info").innerHTML = `<p>Error loading recommendations: ${error.message}</p>`;
+        }
+    });
+
+
+        // Load parent categories
+        document.getElementById("loadParentCategories").addEventListener("click", async () => {
+            const categoryId = document.getElementById("categoryId").value; // Directe toegang zonder casting
+            try {
+                const parentCategories = await sdk.getParentCategories(categoryId);
+                document.getElementById("parent-categories-info").innerHTML = `
+                    <h2>Parent Categories</h2>
+                    <ul>
+                        ${parentCategories.map(category => `<li>${category.name}</li>`).join('')}
+                    </ul>
+                `;
+            } catch (error) {
+                document.getElementById("parent-categories-info").innerHTML = `<p>Error loading parent categories: ${error.message}</p>`;
+            }
+        });
+
+        // Load location autocomplete
+        document.getElementById("loadLocationAutocomplete").addEventListener("click", async () => {
+            const query = document.getElementById("autocompleteQuery").value;
+            try {
+                const autocompleteResults = await sdk.getLocationAutocomplete(query);
+                document.getElementById("location-autocomplete-info").innerHTML = `
+                    <h2>Location Autocomplete</h2>
+                    <ul>
+                        ${autocompleteResults.results.map(result => `
+                            <li>
+                                <strong>${result.title}</strong><br>
+                                Address: ${result.address}<br>
+                                City: ${result.city}<br>
+                                Category: ${result.category_name}<br>
+                                Parent Category: ${result.parent_category_name}
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            } catch (error) {
+                document.getElementById("location-autocomplete-info").innerHTML = `<p>Error loading location autocomplete: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
