@@ -2,27 +2,20 @@
 
 ## How to use
 ```typescript
-import MapsUntoldChannel, MapsUntoldConfig from '@mapsuntold/sdk';
-
-// Create config
-const config : MapsUntoldConfig = {
-    // Used to authenticate with the Maps Untold API
-    apiKey: "<API_KEY>"
-};
+import { MapsUntold } from '@mapsuntold/sdk';
 
 // Initialize the SDK
-const mu = new MapsUntoldChannel(config);
+const channel = await MapsUntold({
+    apiKey: "<API_KEY>",
+    channelSlug: "<CHANNEL_SLUG>"
+});
 
-// Retrieve a channel
-const channel = await mu.getChannel("maps-untold");
+// Get categories
+const categories = await channel.getParentCategories();
 
-// Get results
-const results = await channel.getRecommendations(/* PARAMS */);
-```
+// Select a category
+const category = categories.results[0];
 
-## Bespreken
-- [x] channel als root
-- [x] iframe dingetje
-- [x] jsfiddle
-- [/] documentatie
-- [x] geen personalized recommendations (wachten op UI component) 
+// Get channel recommendations
+const recommendations = await channel.getRecommendations(category.id);
+``
