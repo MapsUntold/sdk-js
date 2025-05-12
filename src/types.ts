@@ -113,6 +113,9 @@ interface ParentCategory extends Model {
     name_plural: string;
     search_text: string;
     icon: string;
+    skip_personalization: boolean;
+    suggestion_title: string;
+    suggestion_description: string;
     created_at: string;
     updated_at: string;
 }
