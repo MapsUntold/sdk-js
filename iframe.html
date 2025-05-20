@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapsUntold iFrame Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .card {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            max-width: 850px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>MapsUntold Iframe Example</h1>
+
+        <div style="display:flex; gap: 16px;">
+            <div style="flex:1">
+                <h2>Default</h2>
+                <div>
+                    <div class="maps-untold" data-channel="maps-untold"></div>
+                </div>
+            </div>
+
+            <div style="flex:1">
+         
+            </div>
+        </div>
+
+        <h2>Big</h2>
+        <div class="">
+            <div class="maps-untold" data-channel="maps-untold"></div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { MapsUntold } from "./dist/bundle.js"; // Verwijs naar de Rollup-output
+    </script>
+</body>
+</html>

@@ -1,10 +1,15 @@
 import axios, { AxiosInstance } from "axios";
 import { LocationAutocomplete, Location, ID, Pagination, RawChannel, ParentCategory, Recommendation, ExampleLocation, TopLocation } from "./types";
+import "./iframe";
 
 interface MapsUntoldConfig {
     channelSlug: string;
     apiKey: string;
     apiUrl?: string;
+}
+
+interface IframeConfig {
+    channelSlug: string;
 }
 
 const MapsUntold = async (config: MapsUntoldConfig): Promise<Channel> => {
