@@ -1,5 +1,8 @@
 # Maps Untold Javascript SDK
 
+## Important
+The SDK is out-of-date. The new questions API and relevant changes/fixes have not been implemented in the SDK, but directly into the frontend.
+
 ## How to use
 ```typescript
 import MapsUntoldChannel, MapsUntoldConfig from '@mapsuntold/sdk';
